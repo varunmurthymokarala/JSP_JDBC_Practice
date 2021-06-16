@@ -1,0 +1,38 @@
+create table VM_Blood_banks( 
+    Blood_Bank_id number(12) primary key, 
+    Blood_Bank_name varchar2(80) not null,
+    Contact_number number(10) not null,
+    Gender varchar2(11) not null, 
+    Blood_group varchar2(30) not null, 
+    City varchar2(80) not null, 
+    comments varchar2(1000) 
+);
+
+
+
+CREATE SEQUENCE  VM1980947_Blood_Bank_ID_SEQ MINVALUE 1 START WITH 1 INCREMENT BY 1;
+CREATE OR REPLACE TRIGGER VM198047_Blood_banks_TRG
+BEFORE INSERT
+ON VM1980947_Blood_banks REFERENCING NEW AS NEW OLD AS Old
+FOR EACH ROW
+WHEN (New.Blood_bank_ID is null)
+BEGIN
+	:new.Blood_bank_ID := VM_Blood_Bank_ID_SEQ.nextval;
+END;
+
+Alter Trigger VM198047_Blood_banks_TRG enable;
+
+
+
+insert into  VM1980947_Blood_banks( blood_bank_name,  contact_number, gender, blood_group,city) values ('Bigredbus',2512345, 'Male',  'O', 'Tampa');
+
+insert into VM1980947_Blood_banks( blood_bank_name,  contact_number, gender, blood_group,city) values ( 'LifeStream', 2923460, 'Female',  'AB', 'Cleveland');
+
+insert into VM1980947_Blood_banks( blood_bank_name,  contact_number, gender, blood_group,city) values ('UCLA', 3067894, 'Other',  'B', 'Dallas');
+
+insert into VM1980947_Blood_banks( blood_bank_name,  contact_number, gender, blood_group,city) values ('CMS', 2023458, 'Male',  'A', 'Utah');
+
+insert into VM1980947_Blood_banks( blood_bank_name,  contact_number, gender, blood_group,city) values ('Westcoast',  2597865, 'Male',  'A', 'California');
+
+
+commit;
